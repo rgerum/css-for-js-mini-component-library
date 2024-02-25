@@ -10,10 +10,11 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
       <>
-          <Wrapper>{displayedValue}
+          <Wrapper>
               <Selet value={value} onChange={onChange}>
                   {children}
               </Selet>
+              <Display>{displayedValue}</Display>
           </Wrapper>
       </>
   );
@@ -28,14 +29,14 @@ const Selet = styled.select`
     color: transparent;
     background: transparent;
     border: none;
-    
-    &:focus {
-        outline: 2px;
-        outline-color: black;
-    }
+    opacity: 0;
 `
-
 const Wrapper = styled.div`
+    position: relative;
+    width: max-content;
+    `
+const Display = styled.div`
+    pointer-events: none;
     border-radius: 8px;
   background: ${COLORS.transparentGray15};
   color: ${COLORS.gray700};
@@ -54,12 +55,17 @@ const Wrapper = styled.div`
         height: 10px;
         transform: rotate(135deg);
     }
-    &:hover::before {
+    ${Selet}:hover + &::before {
         border-color: ${COLORS.black};
     }
     
-    &:hover {
+    ${Selet}:hover + & {
         color: ${COLORS.black};
+    }
+
+    ${Selet}:focus + & {
+        outline: 1px dotted #212121;
+        outline: 5px auto -webkit-focus-ring-color;
     }
 `;
 
